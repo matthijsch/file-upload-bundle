@@ -1,0 +1,29 @@
+{
+    "name": "connectholland/file-upload-bundle",
+    "description": "File upload bundle integration for Symfony 3+.",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Niels Nijens",
+            "email": "niels@connectholland.nl"
+        },
+        {
+            "name": "Matthijs Hasenpflug",
+            "email": "matthijs@connectholland.nl"
+        }
+    ],
+    "require": {
+        "php": "^5.5 | ^7.0",
+        "doctrine/orm": "^2.5",
+        "symfony/framework-bundle": "^3.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^4.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "ConnectHolland\\FileUploadBundle\\": ""
+        }
+    }
+}
