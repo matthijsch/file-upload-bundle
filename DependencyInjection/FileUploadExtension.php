@@ -17,8 +17,8 @@ class FileUploadExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        if (isset($config['file_upload_path'])) {
-            $container->setParameter('file_upload_path', $config['file_upload_path']);
+        if (isset($config['path'])) {
+            $container->setParameter('file_upload.path', $config['path']);
             $loader = new XmlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
             $loader->load('upload_services.xml');
         }
