@@ -2,7 +2,7 @@
 
 namespace ConnectHolland\FileUploadBundle\EventListener;
 
-use FileUploadBundle\Model\UploadObjectInterface;
+use ConnectHolland\FileUploadBundle\Model\UploadObjectInterface;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PreFlushEventArgs;
