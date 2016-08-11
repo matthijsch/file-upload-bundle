@@ -4,6 +4,11 @@ namespace ConnectHolland\FileUploadBundle\Model;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
+/**
+ * UploadTrait.
+ *
+ * @author Niels Nijens <niels@connectholland.nl>
+ */
 trait UploadTrait
 {
     /**
@@ -11,13 +16,15 @@ trait UploadTrait
      *
      * @var UploadedFile[]
      */
-    private $fileUploads = [];
+    private $fileUploads = array();
+
     /**
      * The base path for file uploads.
      *
      * @var string
      */
     private $fileUploadPath;
+
     /**
      * Returns the uploaded file.
      *
@@ -30,6 +37,7 @@ trait UploadTrait
             return $this->fileUploads[$propertyName];
         }
     }
+
     /**
      * Returns the array with uploaded file instances.
      *
@@ -39,6 +47,7 @@ trait UploadTrait
     {
         return $this->fileUploads;
     }
+
     /**
      * Sets the uploaded file.
      *
@@ -52,6 +61,7 @@ trait UploadTrait
             $this->fileUploads[$propertyName] = $file;
         }
     }
+
     /**
      * Sets the base directory for file uploads.
      *
@@ -61,6 +71,7 @@ trait UploadTrait
     {
         $this->fileUploadPath = $directory;
     }
+
     /**
      * Returns file upload name based on the called method name.
      *

@@ -9,7 +9,6 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  *
  * @author Niels Nijens <niels@connectholland.nl>
  */
-
 interface UploadObjectInterface
 {
     /**
@@ -17,8 +16,8 @@ interface UploadObjectInterface
      *
      * @return UploadedFile[]
      */
-
     public function getFileUploads();
+
     /**
      * Sets the base path for file uploads.
      *

@@ -12,7 +12,13 @@ use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-class UploadListener implements EventSubscriber
+/**
+ * ObjectUploadSubscriber.
+ *
+ * @author Niels Nijens <niels@connectholland.nl>
+ * @author Matthijs Hasenpflug <matthijs@connectholland.nl>
+ */
+class ObjectUploadSubscriber implements EventSubscriber
 {
     /**
      * Target directory.
@@ -24,13 +30,13 @@ class UploadListener implements EventSubscriber
      *
      * @var array
      */
-    private $filesScheduledForDeletion = [];
+    private $filesScheduledForDeletion = array();
 
     /*
-     * Constructor.
-     *
-     * @param String $fileUploadPath
-     */
+    * Constructor.
+    *
+    * @param String $fileUploadPath
+    */
     public function __construct($fileUploadPath)
     {
         $this->fileUploadPath = $fileUploadPath;
@@ -41,13 +47,13 @@ class UploadListener implements EventSubscriber
     */
    public function getSubscribedEvents()
    {
-       return [
+       return array(
            Events::preFlush,
            Events::prePersist,
            Events::postPersist,
            Events::postUpdate,
            Events::postFlush,
-       ];
+       );
    }
 
     /**
@@ -61,7 +67,7 @@ class UploadListener implements EventSubscriber
         $unitOfWork = $objectManager->getUnitOfWork();
         $entityMap = $unitOfWork->getIdentityMap();
         foreach ($entityMap as $objectClass => $objects) {
-            if (in_array(UploadObjectInterface::class, class_implements($objectClass))) {
+            if (in_array(UploadObjectInterface::class, is_subclass_of($objectClass))) {
                 foreach ($objects as $object) {
                     $this->prepareUploadFileReferences($object);
                 }
@@ -128,15 +134,15 @@ class UploadListener implements EventSubscriber
         $objectName = $reflectionClass->getShortName();
         $fileUploads = $object->getFileUploads();
 
-        foreach ($fileUploads as $fieldName => $fileUpload) {
-            $camelizedFieldName = Container::camelize($fieldName);
-            $fileFieldProperty = lcfirst($camelizedFieldName);
+        foreach ($fileUploads as $propertyName => $fileUpload) {
+            $camelizedPropertyName = Container::camelize($propertyName);
+            $fileFieldProperty = lcfirst($camelizedPropertyName);
 
-            $getter = 'get'.$camelizedFieldName;
-            $setter = 'set'.$camelizedFieldName;
+            $getter = 'get'.$camelizedPropertyName;
+            $setter = 'set'.$camelizedPropertyName;
             $previousFileReference = $object->$getter();
             if (empty($previousFileReference) === false) {
-                $this->filesScheduledForDeletion[] = sprintf('%s/%s', $this->getFilePath($objectName, $fieldName), $previousFileReference);
+                $this->filesScheduledForDeletion[] = sprintf('%s/%s', $this->getFilePath($objectName, $propertyName), $previousFileReference);
             }
             $fileName = md5(uniqid()).'.'.$fileUpload->guessExtension();
             $object->$setter($fileName);
@@ -154,31 +160,32 @@ class UploadListener implements EventSubscriber
         $objectName = $reflectionClass->getShortName();
         $fileUploads = $object->getFileUploads();
 
-        foreach ($fileUploads as $fieldName => $fileUpload) {
-            $camelizedFieldName = Container::camelize($fieldName);
-            $fileFieldProperty = lcfirst($camelizedFieldName);
+        foreach ($fileUploads as $propertyName => $fileUpload) {
+            $camelizedPropertyName = Container::camelize($propertyName);
+            $fileFieldProperty = lcfirst($camelizedPropertyName);
 
-            $getter = 'get'.$camelizedFieldName;
-            $setter = 'set'.$camelizedFieldName.'Upload';
-            $fileUpload->move($this->getFilePath($objectName, $fieldName), $object->$getter());
+            $getter = 'get'.$camelizedPropertyName;
+            $setter = 'set'.$camelizedPropertyName.'Upload';
+            $fileUpload->move($this->getFilePath($objectName, $propertyName), $object->$getter());
             $object->$setter(null);
         }
     }
+
     /**
      * Returns the file path for a field name of an object.
      *
      * @param string $objectName
-     * @param string $fieldName
+     * @param string $propertyName
      *
      * @return string
      */
-    private function getFilePath($objectName, $fieldName)
+    private function getFilePath($objectName, $propertyName)
     {
         return sprintf(
             '%s/%s/%s',
             $this->fileUploadPath,
             strtolower($objectName),
-            $fieldName
+            $propertyName
         );
     }
 }
