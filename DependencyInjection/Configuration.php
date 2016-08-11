@@ -1,5 +1,6 @@
 <?php
-namespace FlexModel\FlexModelBundle\DependencyInjection;
+namespace ConnectHolland\FileUploadBundle\DependencyInjection;
+
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -8,7 +9,6 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  *
  * @author Matthijs Hasenpflug <matthijs@connectholland.nl>
  */
-
 class Configuration implements ConfigurationInterface
 {
     /**
