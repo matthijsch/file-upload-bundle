@@ -1,5 +1,5 @@
 <?php
-namespace Connectholland\FileUploadBundle;
+namespace ConnectHolland\FileUploadBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
