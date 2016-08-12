@@ -70,15 +70,11 @@ Here the `getImageUpload` method maps to a field called 'image' and `getAnotherI
 ## Credits
 
 - [Niels Nijens][link-author]
-- [Matthijs Hasenpflug][link-author]
 - [All Contributors][link-contributors]
 
 ### License
 
 This package is licensed under the MIT License. Please see the [LICENSE file](LICENSE.md) for details.
 
-[icon-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg
-
-[link-symfony-form-documentation]: http://symfony.com/doc/current/book/forms.html
 [link-author]: https://github.com/niels-nijens
 [link-contributors]: ../../contributors

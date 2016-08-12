@@ -7,7 +7,7 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 /**
  * Configuration validates and merges configuration from the app/config files.
  *
- * @author Matthijs Hasenpflug <matthijs@connectholland.nl>
+ * @author Niels Nijens <niels@connectholland.nl>
  */
 class Configuration implements ConfigurationInterface
 {

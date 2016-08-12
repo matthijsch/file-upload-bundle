@@ -16,7 +16,6 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  * ObjectUploadSubscriber.
  *
  * @author Niels Nijens <niels@connectholland.nl>
- * @author Matthijs Hasenpflug <matthijs@connectholland.nl>
  */
 class ObjectUploadSubscriber implements EventSubscriber
 {
